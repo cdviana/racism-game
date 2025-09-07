@@ -28,11 +28,234 @@
         }
       ]
     },
-
     {
       "id": "NB",
       "title": "Ponto NB — Butantã",
       "embedSrc": "https://www.google.com/maps/embed?pb=!4v1757281881027!6m8!1m7!1sEwRDJ9ISxYXY9NdQx5vsLQ!2m2!1d-23.56525390628589!2d-46.71223281348831!3f286.07339557815925!4f16.283180025522796!5f0.7820865974627469",
+      "hotspots": [
+        {
+          "x": 0.4617,
+          "y": 0.5832,
+          "r": 60,
+          "label": "Toque para revelar",
+          "successText": "Você acertou: símbolo encontrado!"
+        }
+      ]
+    },
+    {
+      "id": "ND",
+      "title": "Ponto ND — Jd. Pereira Leite",
+      "embedSrc": "https://www.google.com/maps/embed?pb=!4v1757283501629!6m8!1m7!1sNHNu9CqDn_Ri62rW_Pmu0Q!2m2!1d-23.5104930780233!2d-46.67328169026732!3f95.75934722596594!4f-4.470357777825953!5f0.7820865974627469",
+      "hotspots": [
+        {
+          "x": 0.4617,
+          "y": 0.5832,
+          "r": 60,
+          "label": "Toque para revelar",
+          "successText": "Você acertou: símbolo encontrado!"
+        }
+      ]
+    },
+    {
+      "id": "LA",
+      "title": "Ponto LA — Penha",
+      "embedSrc": "https://www.google.com/maps/embed?pb=!4v1757283686477!6m8!1m7!1s5HTBESDHAj-ZxR_OKlSaCQ!2m2!1d-23.52531770428928!2d-46.54906751254448!3f114.63489632898103!4f6.561620116073129!5f0.7820865974627469",
+      "hotspots": [
+        {
+          "x": 0.4617,
+          "y": 0.5832,
+          "r": 60,
+          "label": "Toque para revelar",
+          "successText": "Você acertou: símbolo encontrado!"
+        }
+      ]
+    },
+    {
+      "id": "LB",
+      "title": "Ponto LB — Cidade Tiradentes",
+      "embedSrc": "https://www.google.com/maps/embed?pb=!4v1757283803851!6m8!1m7!1sWox_lOEv50UZQevezWQZAg!2m2!1d-23.59367309135956!2d-46.3932154386614!3f50.37785713748133!4f-4.8799145596315014!5f0.7820865974627469",
+      "hotspots": [
+        {
+          "x": 0.4617,
+          "y": 0.5832,
+          "r": 60,
+          "label": "Toque para revelar",
+          "successText": "Você acertou: símbolo encontrado!"
+        }
+      ]
+    },
+    {
+      "id": "LC",
+      "title": "Ponto LC — Vila Santa Ines",
+      "embedSrc": "https://www.google.com/maps/embed?pb=!4v1757284074124!6m8!1m7!1spjYyT_6rA3Ye5_fS7O1tnQ!2m2!1d-23.49179853976509!2d-46.46848537185743!3f313.35795734234296!4f11.438390580782468!5f0.7820865974627469",
+      "hotspots": [
+        {
+          "x": 0.4617,
+          "y": 0.5832,
+          "r": 60,
+          "label": "Toque para revelar",
+          "successText": "Você acertou: símbolo encontrado!"
+        }
+      ]
+    },
+    {
+      "id": "LD",
+      "title": "Ponto LD — Jardim Pantanal",
+      "embedSrc": "https://www.google.com/maps/embed?pb=!4v1757284526612!6m8!1m7!1sdTfU3GrtD0boi9ykWxd3UA!2m2!1d-23.48397528676824!2d-46.40930147201608!3f119.43651115447884!4f2.2651805364535136!5f0.7820865974627469",
+      "hotspots": [
+        {
+          "x": 0.4617,
+          "y": 0.5832,
+          "r": 60,
+          "label": "Toque para revelar",
+          "successText": "Você acertou: símbolo encontrado!"
+        }
+      ]
+    },
+    {
+      "id": "CA",
+      "title": "Ponto CA — ",
+      "embedSrc": "",
+      "hotspots": [
+        {
+          "x": 0.4617,
+          "y": 0.5832,
+          "r": 60,
+          "label": "Toque para revelar",
+          "successText": "Você acertou: símbolo encontrado!"
+        }
+      ]
+    },
+    {
+      "id": "CC",
+      "title": "Ponto CC — ",
+      "embedSrc": "",
+      "hotspots": [
+        {
+          "x": 0.4617,
+          "y": 0.5832,
+          "r": 60,
+          "label": "Toque para revelar",
+          "successText": "Você acertou: símbolo encontrado!"
+        }
+      ]
+    },
+    {
+      "id": "CD",
+      "title": "Ponto CD — ",
+      "embedSrc": "",
+      "hotspots": [
+        {
+          "x": 0.4617,
+          "y": 0.5832,
+          "r": 60,
+          "label": "Toque para revelar",
+          "successText": "Você acertou: símbolo encontrado!"
+        }
+      ]
+    },
+    {
+      "id": "OA",
+      "title": "Ponto OA — ",
+      "embedSrc": "",
+      "hotspots": [
+        {
+          "x": 0.4617,
+          "y": 0.5832,
+          "r": 60,
+          "label": "Toque para revelar",
+          "successText": "Você acertou: símbolo encontrado!"
+        }
+      ]
+    },
+    {
+      "id": "OB",
+      "title": "Ponto OB — ",
+      "embedSrc": "",
+      "hotspots": [
+        {
+          "x": 0.4617,
+          "y": 0.5832,
+          "r": 60,
+          "label": "Toque para revelar",
+          "successText": "Você acertou: símbolo encontrado!"
+        }
+      ]
+    },
+    {
+      "id": "OC",
+      "title": "Ponto OC — ",
+      "embedSrc": "",
+      "hotspots": [
+        {
+          "x": 0.4617,
+          "y": 0.5832,
+          "r": 60,
+          "label": "Toque para revelar",
+          "successText": "Você acertou: símbolo encontrado!"
+        }
+      ]
+    },
+    {
+      "id": "OD",
+      "title": "Ponto OD — ",
+      "embedSrc": "",
+      "hotspots": [
+        {
+          "x": 0.4617,
+          "y": 0.5832,
+          "r": 60,
+          "label": "Toque para revelar",
+          "successText": "Você acertou: símbolo encontrado!"
+        }
+      ]
+    },
+    {
+      "id": "SA",
+      "title": "Ponto SA — ",
+      "embedSrc": "",
+      "hotspots": [
+        {
+          "x": 0.4617,
+          "y": 0.5832,
+          "r": 60,
+          "label": "Toque para revelar",
+          "successText": "Você acertou: símbolo encontrado!"
+        }
+      ]
+    },
+    {
+      "id": "SB",
+      "title": "Ponto SB — ",
+      "embedSrc": "",
+      "hotspots": [
+        {
+          "x": 0.4617,
+          "y": 0.5832,
+          "r": 60,
+          "label": "Toque para revelar",
+          "successText": "Você acertou: símbolo encontrado!"
+        }
+      ]
+    },
+    {
+      "id": "SC",
+      "title": "Ponto SC — ",
+      "embedSrc": "",
+      "hotspots": [
+        {
+          "x": 0.4617,
+          "y": 0.5832,
+          "r": 60,
+          "label": "Toque para revelar",
+          "successText": "Você acertou: símbolo encontrado!"
+        }
+      ]
+    },
+    {
+      "id": "SD",
+      "title": "Ponto SD — ",
+      "embedSrc": "",
       "hotspots": [
         {
           "x": 0.4617,
@@ -47,4 +270,3 @@
 }
 
 
-<iframe src="https://www.google.com/maps/embed?pb=!4v1757281881027!6m8!1m7!1sEwRDJ9ISxYXY9NdQx5vsLQ!2m2!1d-23.56525390628589!2d-46.71223281348831!3f286.07339557815925!4f16.283180025522796!5f0.7820865974627469" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
