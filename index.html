@@ -11,62 +11,67 @@
     }
     html, body { height: 100%; margin: 0; background:#000; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
     #app { position: relative; height: 100%; overflow: hidden; }
+
     /* Street View (iframe oficial) */
     #sv {
       position: absolute; inset: 0; border: 0; width: 100%; height: 100%;
-      /* NÃO aplicar filter aqui (evita "alterar" a renderização do conteúdo Google) */
+      /* NÃO aplicar filter aqui */
     }
-    /* Camada bloqueadora: impede arrastar o Street View (mantém o enquadramento) */
+
+    /* Bloqueia arrastar no Street View até acertar/“liberar rotação” */
     #blocker {
-      position: absolute; inset: 0; pointer-events: auto; /* captura toques */
-      background: transparent;
+      position: absolute; inset: 0; pointer-events: auto; background: transparent;
     }
-    /* Véu semitransparente: dá aparência dessaturada sem tocar na imagem do Google */
-    #veil {
-      position: absolute; inset: 0; pointer-events: none;
-      /* deixa livre a área de atribuições na base */
+
+    /* Véu cinza (aparência PB sem tocar na imagem do Google) */
+    #veil, #veil-hole {
+      position: absolute; inset: 0;
       clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--safe-bottom)), 0 calc(100% - var(--safe-bottom)));
       background: rgba(128,128,128,var(--veil-alpha));
-      transition: clip-path 400ms ease, background 200ms ease;
-    }
-    /* Buraco para destacar o símbolo (adicionado dinamicamente) */
-    .hole {
-      position: absolute; top: 0; left: 0; right: 0; bottom: var(--safe-bottom);
       pointer-events: none;
-      /* substitui o recorte padrão por um círculo transparente no ponto do hotspot */
-      /* valores são setados via CSS vars --cx --cy --r */
+    }
+    #veil-hole { display: none; } /* aparece só após acerto */
+    .hole-mask {
       -webkit-mask: radial-gradient(circle var(--r,60px) at var(--cx,50%) var(--cy,50%), transparent 0 98%, black 100%);
               mask: radial-gradient(circle var(--r,60px) at var(--cx,50%) var(--cy,50%), transparent 0 98%, black 100%);
-      background: rgba(128,128,128,var(--veil-alpha));
       transition: -webkit-mask 400ms ease, mask 400ms ease, background 200ms ease;
     }
 
-    /* Hotspots: clique no símbolo */
+    /* Zonas clicáveis invisíveis (sem dica visual) */
     .hotspot {
+      position: absolute; transform: translate(-50%, -50%);
+      width: 72px; height: 72px;
+      /* invisível, mas clicável */
+      background: transparent; border: none; outline: none; opacity: 0;
+      cursor: pointer; z-index: 5;
+    }
+
+    /* Indicador pós-acerto (apenas confirmação visual; não clicável) */
+    .found-indicator {
       position: absolute; transform: translate(-50%, -50%);
       width: 72px; height: 72px; border-radius: 50%;
       border: 2px dashed rgba(255, 212, 64, .9);
       background: rgba(255, 212, 64, .15);
       box-shadow: 0 0 0 2px rgba(0,0,0,.25) inset;
-      cursor: pointer;
-      z-index: 5; /* acima do blocker */
-    }
-    .pulse {
+      pointer-events: none; z-index: 6;
       animation: pulse 1.6s ease-in-out infinite;
     }
     @keyframes pulse {
-      0% { box-shadow: 0 0 0 2px rgba(0,0,0,.25) inset, 0 0 0 0 rgba(255,212,64,.6); }
-      70% { box-shadow: 0 0 0 2px rgba(0,0,0,.25) inset, 0 0 0 24px rgba(255,212,64,0); }
+      0%   { box-shadow: 0 0 0 2px rgba(0,0,0,.25) inset, 0 0 0 0 rgba(255,212,64,.6); }
+      70%  { box-shadow: 0 0 0 2px rgba(0,0,0,.25) inset, 0 0 0 24px rgba(255,212,64,0); }
       100% { box-shadow: 0 0 0 2px rgba(0,0,0,.25) inset, 0 0 0 0 rgba(255,212,64,0); }
     }
 
     /* UI mínima */
     .topbar {
       position: absolute; top: 10px; left: 10px; right: 10px; display:flex; gap:8px; align-items:center; z-index: 9;
+      flex-wrap: wrap;
     }
     .tag { background: rgba(0,0,0,.5); color:#fff; padding:6px 10px; border-radius:10px; font-size:14px; }
     .btn { background:#ffd400; border:0; border-radius:10px; padding:8px 12px; font-weight:600; cursor:pointer; }
     .btn:active { transform: translateY(1px); }
+    .btn.secondary { background:#eee; }
+
     .toast {
       position: absolute; left:50%; transform: translateX(-50%);
       bottom: calc(var(--safe-bottom) + 10px); z-index: 9;
@@ -74,34 +79,34 @@
       opacity: 0; pointer-events: none; transition: opacity .25s ease;
     }
     .toast.show { opacity: 1; }
-    /* Faixa que não cobrimos (atribuições do Google) */
+
+    /* Faixa livre para atribuições do Google */
     .attribution-safe {
       position: absolute; left:0; right:0; bottom:0; height: var(--safe-bottom); z-index: 1; pointer-events: none;
-      /* Transparente para não esconder logo/links do Google */
     }
-
-    /* Layout responsivo: hotspots definidos em % do viewport para qualquer tela */
   </style>
 </head>
 <body>
   <div id="app">
     <iframe id="sv" title="Google Street View" allowfullscreen loading="eager" referrerpolicy="no-referrer-when-downgrade"></iframe>
 
-    <!-- Bloqueia arrastar no Street View; deixamos buracos nos hotspots -->
+    <!-- Bloqueia a rotação até resolver ou clicar em "Liberar rotação" -->
     <div id="blocker"></div>
 
-    <!-- Véu padrão e camada com "buraco" após acerto -->
+    <!-- Véu padrão e “buraco” pós-acerto -->
     <div id="veil"></div>
-    <div id="veil-hole" class=""></div>
+    <div id="veil-hole"></div>
 
-    <!-- Hotspots (injetados via JS) -->
+    <!-- Hotspots (injetados via JS) e indicadores pós-acerto -->
     <div id="hotspots"></div>
+    <div id="indicators"></div>
 
     <!-- UI -->
     <div class="topbar">
       <div id="sceneTitle" class="tag">Carregando cena…</div>
+      <div class="tag">Clique para encontrar o símbolo</div>
       <button id="btnRelease" class="btn" style="display:none;">Liberar rotação</button>
-      <button id="btnReset" class="btn" style="display:none; background:#eee;">Reset</button>
+      <button id="btnReset" class="btn secondary" style="display:none;">Reset</button>
     </div>
     <div id="toast" class="toast">Você encontrou o símbolo!</div>
 
@@ -110,15 +115,16 @@
   </div>
 
   <script>
-    // 1) Carrega cenas do JSON e escolhe via ?s=<id> (ou primeira cena)
+    // Lê a cena via ?s=<id> e scenes.json
     const params = new URLSearchParams(location.search);
     const sceneId = params.get('s');
 
     const sv = document.getElementById('sv');
     const blocker = document.getElementById('blocker');
     const veil = document.getElementById('veil');
-    const hole = document.getElementById('veil-hole');
+    const veilHole = document.getElementById('veil-hole');
     const hsLayer = document.getElementById('hotspots');
+    const indicators = document.getElementById('indicators');
     const toast = document.getElementById('toast');
     const titleEl = document.getElementById('sceneTitle');
     const btnRelease = document.getElementById('btnRelease');
@@ -131,80 +137,90 @@
       scene = sceneId ? data.scenes.find(x => x.id === sceneId) : data.scenes[0];
       if (!scene) throw new Error('Cena não encontrada');
       titleEl.textContent = scene.title || 'Cena';
-      sv.src = scene.embedSrc; // URL oficial do Google (copiada do "Incorporar mapa")
+      sv.src = scene.embedSrc; // URL oficial do Google (copiada do "Incorporar")
       makeHotspots(scene.hotspots || []);
     }).catch(err => {
       titleEl.textContent = 'Erro ao carregar a cena';
       console.error(err);
     });
 
-    // 2) Cria hotspots em coordenadas relativas da tela (0..1)
     function makeHotspots(list) {
       hsLayer.innerHTML = '';
-      list.forEach((h, idx) => {
+      indicators.innerHTML = '';
+      list.forEach((h) => {
+        // Hotspot invisível (clicável)
         const d = document.createElement('div');
-        d.className = 'hotspot pulse';
+        d.className = 'hotspot';
         d.style.left = (h.x * 100) + '%';
         d.style.top  = (h.y * 100) + '%';
         d.style.width = (h.w || 72) + 'px';
         d.style.height = (h.h || 72) + 'px';
-        d.title = h.label || 'Toque para revelar';
         d.addEventListener('click', () => onHit(d, h));
         hsLayer.appendChild(d);
       });
     }
 
-    // 3) Ao acertar, abre "buraco" no véu e dá feedback
     function onHit(el, h) {
       if (solved) return;
       solved = true;
 
-      // Calcula centro do hotspot em pixels
+      // Centro do hotspot em pixels
       const rect = el.getBoundingClientRect();
       const cx = rect.left + rect.width/2;
       const cy = rect.top  + rect.height/2;
 
-      // Converte p/ porcentagem do viewport (para CSS mask)
+      // Em % do viewport (para a máscara do “buraco”)
       const cxPct = (cx / window.innerWidth) * 100;
       const cyPct = (cy / window.innerHeight) * 100;
 
-      // Configura "buraco" no véu (apenas na área do símbolo)
-      hole.className = 'hole';
-      hole.style.setProperty('--cx', cxPct+'%');
-      hole.style.setProperty('--cy', cyPct+'%');
-      hole.style.setProperty('--r', (h.r || Math.max(rect.width, rect.height)) + 'px');
+      // Mostra o buraco apenas na área do símbolo
+      veilHole.style.display = 'block';
+      veilHole.classList.add('hole-mask');
+      veilHole.style.setProperty('--cx', cxPct+'%');
+      veilHole.style.setProperty('--cy', cyPct+'%');
+      veilHole.style.setProperty('--r', (h.r || Math.max(rect.width, rect.height)) + 'px');
 
-      // Feedback
+      // Indicador pós-acerto (anel amarelo pulsante, não clicável)
+      const ind = document.createElement('div');
+      ind.className = 'found-indicator';
+      ind.style.left = (h.x * 100) + '%';
+      ind.style.top  = (h.y * 100) + '%';
+      ind.style.width = (h.r ? h.r*2 : Math.max(rect.width, rect.height)) + 'px';
+      ind.style.height = ind.style.width;
+      indicators.appendChild(ind);
+
+      // Feedback & botões
       toast.textContent = h.successText || 'Você encontrou o símbolo!';
       toast.classList.add('show');
-
-      // Mostra botões
       btnRelease.style.display = 'inline-block';
       btnReset.style.display = 'inline-block';
-
-      // Opcional: desliga o pulsar
-      document.querySelectorAll('.hotspot').forEach(e => e.classList.remove('pulse'));
     }
 
-    // 4) Libera a rotação (remove bloqueio, mantendo o véu/hole)
+    // Liberar rotação: remove bloqueio e REMOVE o véu cinza
     btnRelease.addEventListener('click', () => {
-      blocker.style.display = 'none'; // agora o usuário pode arrastar o Street View
+      blocker.style.display = 'none';
+      veil.style.display = 'none';
+      veilHole.style.display = 'none';
       btnRelease.disabled = true;
       btnRelease.textContent = 'Rotação liberada';
     });
 
-    // 5) Reset
+    // Reset total
     btnReset.addEventListener('click', () => {
       solved = false;
-      blocker.style.display = ''; // volta a travar a rotação
-      hole.className = ''; hole.removeAttribute('style');
+      blocker.style.display = '';   // volta a travar
+      veil.style.display = '';      // volta o véu
+      veilHole.style.display = 'none';
+      veilHole.classList.remove('hole-mask');
+      indicators.innerHTML = '';
       toast.classList.remove('show');
-      btnRelease.style.display = 'none'; btnRelease.disabled = false; btnRelease.textContent = 'Liberar rotação';
+      btnRelease.style.display = 'none';
+      btnRelease.disabled = false;
+      btnRelease.textContent = 'Liberar rotação';
       btnReset.style.display = 'none';
-      document.querySelectorAll('.hotspot').forEach(e => e.classList.add('pulse'));
     });
 
-    // Garantir que a faixa inferior (atribuições) não receba véu/mascara
+    // Ajuste da faixa inferior segura (atribuições do Google)
     function updateSafeBottom() {
       const h = Math.max(44, Math.round(window.innerHeight * 0.07)); // 7% ou 44px
       document.documentElement.style.setProperty('--safe-bottom', h + 'px');
