@@ -1,0 +1,15 @@
+{
+  "scenes": [
+    {
+      "id": "NA",
+      "title": "Ponto NA — Símbolo de combate ao racismo",
+      "embedSrc": "https://www.google.com/maps/embed?pb=!4v1757276240808!6m8!1m7!1sHHoFPQqClaQlXIZKajEaQA!2m2!1d-23.40485573013326!2d-46.75334204023502!3f339.1253912097727!4f-0.46946048374800853!5f0.7820865974627469",
+      "hotspots": [
+        { "x": 0.50, "y": 0.50, "r": 90, "label": "Toque para revelar", "successText": "Você acertou: símbolo encontrado!" }
+      ]
+    }
+  ]
+}
+
+
+
