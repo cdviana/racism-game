@@ -20,9 +20,9 @@
       "embedSrc": "https://www.google.com/maps/embed?pb=!4v1757280155970!6m8!1m7!1sQWcg4_3osZrbIJpXmH1xDA!2m2!1d-23.48139541817298!2d-46.60221350988711!3f130.929310883294!4f8.711554776963538!5f1.6367679200211689",
       "hotspots": [
         {
-          "x": 0.0999,
-          "y": 0.4983,
-          "r": 61,
+          "x": 0.4617,
+          "y": 0.5832,
+          "r": 60,
           "label": "Toque para revelar",
           "successText": "Você acertou: símbolo encontrado!"
         }
