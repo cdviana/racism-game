@@ -2,23 +2,31 @@
   "scenes": [
     {
       "id": "NA",
-      "title": "Ponto NA — Símbolo de combate ao racismo",
+      "title": "Ponto NA — Perus",
       "embedSrc": "https://www.google.com/maps/embed?pb=!4v1757276240808!6m8!1m7!1sHHoFPQqClaQlXIZKajEaQA!2m2!1d-23.40485573013326!2d-46.75334204023502!3f339.1253912097727!4f-0.46946048374800853!5f0.7820865974627469",
       "hotspots": [
-        { "x": 0.50, "y": 0.50, "r": 90, "label": "Toque para revelar", "successText": "Você acertou: símbolo encontrado!" }   
+        {
+          "x": 0.50,
+          "y": 0.50,
+          "r": 80,
+          "label": "Toque para revelar",
+          "successText": "Você encontrou o símbolo!"
+        }
       ]
     },
-
     {
       "id": "NC",
-      "title": "Ponto NC — Símbolo de combate ao racismo",
+      "title": "Ponto NC — Vila Gustavo",
       "embedSrc": "https://www.google.com/maps/embed?pb=!4v1757278538006!6m8!1m7!1sQWcg4_3osZrbIJpXmH1xDA!2m2!1d-23.48139541817298!2d-46.60221350988711!3f171.67000017129124!4f-0.420300268527555!5f0.7820865974627469",
       "hotspots": [
-        { "x": 0.02, "y": 0.02, "r": 90, "label": "Toque para revelar", "successText": "Você acertou: símbolo encontrado!" }   
+        {
+          "x": 0.65,
+          "y": 0.40,
+          "r": 100,
+          "label": "Toque para revelar",
+          "successText": "Você encontrou o símbolo do museu!"
+        }
       ]
     }
   ]
 }
-
-
-
