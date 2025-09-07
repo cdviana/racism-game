@@ -17,7 +17,7 @@
     {
       "id": "NC",
       "title": "Ponto NC — Vila Gustavo",
-      "embedSrc": "https://www.google.com/maps/embed?pb=!4v1757278538006!6m8!1m7!1sQWcg4_3osZrbIJpXmH1xDA!2m2!1d-23.48139541817298!2d-46.60221350988711!3f171.67000017129124!4f-0.420300268527555!5f0.7820865974627469",
+      "embedSrc": "https://www.google.com/maps/embed?pb=!4v1757280155970!6m8!1m7!1sQWcg4_3osZrbIJpXmH1xDA!2m2!1d-23.48139541817298!2d-46.60221350988711!3f130.929310883294!4f8.711554776963538!5f1.6367679200211689",
       "hotspots": [
         {
           "x": 0.0999,
@@ -30,5 +30,3 @@
     }
   ]
 }
-
-
