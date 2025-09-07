@@ -7,7 +7,7 @@
   <style>
     :root {
       --safe-bottom: 56px; /* não cobrir atribuições do Google */
-      --veil-alpha: 0.45;  /* intensidade do "preto e branco" por cima */
+      --veil-alpha: 0.85;  /* mais opaco: 0.80–0.90 reduz vividez */
     }
     html, body { height: 100%; margin: 0; background:#000; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
     #app { position: relative; height: 100%; overflow: hidden; }
@@ -27,7 +27,7 @@
     #veil, #veil-hole {
       position: absolute; inset: 0;
       clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--safe-bottom)), 0 calc(100% - var(--safe-bottom)));
-      background: rgba(128,128,128,var(--veil-alpha));
+      background: rgba(64,64,64,var(--veil-alpha)); /* mais escuro que 128,128,128 */
       pointer-events: none;
     }
     #veil-hole { display: none; } /* aparece só após acerto */
@@ -132,6 +132,7 @@
 
     let scene = null;
     let solved = false;
+    let released = false; // marca se a rotação foi liberada
 
     fetch('scenes.json').then(r => r.json()).then(data => {
       scene = sceneId ? data.scenes.find(x => x.id === sceneId) : data.scenes[0];
@@ -158,6 +159,12 @@
         d.addEventListener('click', () => onHit(d, h));
         hsLayer.appendChild(d);
       });
+    }
+
+    function showToast(msg, ms=1800) {
+      toast.textContent = msg;
+      toast.classList.add('show');
+      if (ms > 0) setTimeout(()=> toast.classList.remove('show'), ms);
     }
 
     function onHit(el, h) {
@@ -190,14 +197,22 @@
       indicators.appendChild(ind);
 
       // Feedback & botões
-      toast.textContent = h.successText || 'Você encontrou o símbolo!';
-      toast.classList.add('show');
+      showToast(h.successText || 'Você encontrou o símbolo!', 2000);
       btnRelease.style.display = 'inline-block';
       btnReset.style.display = 'inline-block';
     }
 
+    // Recarrega Street View na mesma URL para voltar ao POV inicial
+    function reloadStreetView() {
+      if (!scene) return;
+      const url = new URL(scene.embedSrc, location.href);
+      url.hash = 'svreset=' + Date.now(); // força reload
+      sv.src = url.toString();
+    }
+
     // Liberar rotação: remove bloqueio e REMOVE o véu cinza
     btnRelease.addEventListener('click', () => {
+      released = true;
       blocker.style.display = 'none';
       veil.style.display = 'none';
       veilHole.style.display = 'none';
@@ -205,10 +220,11 @@
       btnRelease.textContent = 'Rotação liberada';
     });
 
-    // Reset total
+    // Reset total + volta à perspectiva inicial
     btnReset.addEventListener('click', () => {
       solved = false;
-      blocker.style.display = '';   // volta a travar
+      released = false;
+      blocker.style.display = '';   // trava de novo
       veil.style.display = '';      // volta o véu
       veilHole.style.display = 'none';
       veilHole.classList.remove('hole-mask');
@@ -218,6 +234,9 @@
       btnRelease.disabled = false;
       btnRelease.textContent = 'Liberar rotação';
       btnReset.style.display = 'none';
+
+      // volta exatamente à perspectiva inicial:
+      reloadStreetView();
     });
 
     // Ajuste da faixa inferior segura (atribuições do Google)
@@ -227,6 +246,154 @@
     }
     updateSafeBottom();
     addEventListener('resize', updateSafeBottom);
+
+    /* =======================
+       MODO CALIBRAÇÃO (?cal=1)
+       ======================= */
+    const calibrateMode = params.get('cal') === '1';
+    if (calibrateMode) setupCalibrateUI();
+
+    function setupCalibrateUI() {
+      // Painel
+      const ui = document.createElement('div');
+      ui.style.position = 'absolute';
+      ui.style.right = '10px';
+      ui.style.top = '10px';
+      ui.style.zIndex = '999';
+      ui.style.background = 'rgba(0,0,0,.6)';
+      ui.style.color = '#fff';
+      ui.style.padding = '10px';
+      ui.style.borderRadius = '10px';
+      ui.style.font = '14px system-ui';
+      ui.style.maxWidth = '280px';
+      ui.innerHTML = `
+        <div style="margin-bottom:8px;font-weight:700;">Calibração de Hotspot</div>
+        <div style="margin-bottom:6px;">1) Toque na tela onde está o símbolo</div>
+        <div style="margin-bottom:6px;">2) Ajuste o raio</div>
+        <div style="margin-bottom:8px;">3) Copie o JSON e cole no <code>scenes.json</code></div>
+        <div id="cal-info" style="margin:6px 0;">x: –, y: –, r: –</div>
+        <div style="display:flex;align-items:center;gap:8px;margin:6px 0;">
+          <button id="cal-minus" style="padding:4px 8px;">–</button>
+          <input id="cal-radius" type="range" min="20" max="240" value="90" style="width:140px;">
+          <button id="cal-plus" style="padding:4px 8px;">+</button>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button id="cal-copy" class="btn" style="padding:6px 10px;border-radius:8px;background:#ffd400;color:#000;font-weight:700;border:0;cursor:pointer;">Copiar hotspot</button>
+          <button id="cal-clear" class="btn" style="padding:6px 10px;border-radius:8px;background:#eee;color:#000;border:0;cursor:pointer;">Limpar marcadores</button>
+        </div>
+        <div style="margin-top:8px;font-size:12px;opacity:.8;">Dica: mantenha a rotação travada até terminar de calibrar.</div>
+      `;
+      document.body.appendChild(ui);
+
+      // Camada visual do ponto e do círculo
+      const marker = document.createElement('div');
+      marker.style.position = 'absolute';
+      marker.style.left = '50%'; marker.style.top = '50%';
+      marker.style.transform = 'translate(-50%,-50%)';
+      marker.style.width = '0'; marker.style.height = '0';
+      marker.style.zIndex = '998';
+      marker.style.pointerEvents = 'none';
+      marker.innerHTML = `
+        <div id="cal-dot" style="position:absolute;width:10px;height:10px;background:#ffd400;border-radius:50%;box-shadow:0 0 0 2px rgba(0,0,0,.25) inset;transform:translate(-50%,-50%);"></div>
+        <div id="cal-ring" style="position:absolute;border:2px dashed rgba(255,212,64,.9);background:rgba(255,212,64,.15);border-radius:50%;transform:translate(-50%,-50%);"></div>
+      `;
+      document.body.appendChild(marker);
+
+      const info = document.getElementById('cal-info');
+      const inputR = document.getElementById('cal-radius');
+      const btnMinus = document.getElementById('cal-minus');
+      const btnPlus = document.getElementById('cal-plus');
+      const btnCopy = document.getElementById('cal-copy');
+      const btnClear = document.getElementById('cal-clear');
+      const dot = marker.querySelector('#cal-dot');
+      const ring = marker.querySelector('#cal-ring');
+
+      let cxPct = null, cyPct = null;
+      let rPx = parseInt(inputR.value, 10);
+
+      function drawAt(clientX, clientY) {
+        const x = Math.max(0, Math.min(clientX, window.innerWidth));
+        const y = Math.max(0, Math.min(clientY, window.innerHeight));
+
+        cxPct = +(x / window.innerWidth).toFixed(4);
+        cyPct = +(y / window.innerHeight).toFixed(4);
+
+        dot.style.left = x + 'px';
+        dot.style.top  = y + 'px';
+
+        ring.style.left = x + 'px';
+        ring.style.top  = y + 'px';
+        ring.style.width = (rPx * 2) + 'px';
+        ring.style.height = (rPx * 2) + 'px';
+
+        info.textContent = `x: ${cxPct} , y: ${cyPct} , r: ${rPx}`;
+      }
+
+      function handlePoint(ev) {
+        const t = ev.touches && ev.touches[0] ? ev.touches[0] : ev;
+        drawAt(t.clientX, t.clientY);
+      }
+
+      // captura clique/touch na tela (exceto dentro do painel)
+      document.addEventListener('click', (ev) => {
+        if (ui.contains(ev.target)) return;
+        handlePoint(ev);
+      }, true);
+
+      document.addEventListener('touchstart', (ev) => {
+        if (ui.contains(ev.target)) return;
+        handlePoint(ev);
+      }, { passive: true, capture: true });
+
+      // ajustar raio
+      inputR.addEventListener('input', () => { rPx = parseInt(inputR.value,10); if (cxPct!==null) drawAt(cxPct*window.innerWidth, cyPct*window.innerHeight); });
+      btnMinus.addEventListener('click', ()=> { rPx = Math.max(10, rPx-5); inputR.value = rPx; if (cxPct!==null) drawAt(cxPct*window.innerWidth, cyPct*window.innerHeight); });
+      btnPlus.addEventListener('click', ()=> { rPx = Math.min(400, rPx+5); inputR.value = rPx; if (cxPct!==null) drawAt(cxPct*window.innerWidth, cyPct*window.innerHeight); });
+
+      // copiar JSON prontinho
+      btnCopy.addEventListener('click', () => {
+        if (cxPct===null || cyPct===null) { flash('Toque na tela para marcar o centro.'); return; }
+        const hs = { x: cxPct, y: cyPct, r: rPx, label: "Toque para revelar", successText: "Você acertou: símbolo encontrado!" };
+        const snippet = JSON.stringify(hs, null, 2);
+        navigator.clipboard.writeText(snippet).then(()=>{
+          flash('Hotspot copiado! Cole em "hotspots" no scenes.json');
+          console.log('Hotspot:', snippet);
+        });
+      });
+
+      // limpar indicadores
+      btnClear.addEventListener('click', () => {
+        cxPct = cyPct = null;
+        info.textContent = 'x: –, y: –, r: –';
+        dot.style.left = '-9999px';
+        ring.style.left = '-9999px';
+        flash('Marcadores limpos');
+      });
+
+      function flash(msg) {
+        const t = document.createElement('div');
+        t.textContent = msg;
+        t.style.position = 'absolute';
+        t.style.left = '50%';
+        t.style.top = '10px';
+        t.style.transform = 'translateX(-50%)';
+        t.style.background = 'rgba(0,0,0,.7)';
+        t.style.color = '#fff';
+        t.style.padding = '8px 12px';
+        t.style.borderRadius = '10px';
+        t.style.zIndex = '1000';
+        t.style.opacity = '0';
+        t.style.transition = 'opacity .2s ease';
+        document.body.appendChild(t);
+        requestAnimationFrame(()=>{ t.style.opacity = '1'; });
+        setTimeout(()=>{ t.style.opacity = '0'; setTimeout(()=>t.remove(), 250); }, 1200);
+      }
+
+      // re-dimensionamento mantém posição
+      window.addEventListener('resize', () => {
+        if (cxPct!==null) drawAt(cxPct*window.innerWidth, cyPct*window.innerHeight);
+      });
+    }
   </script>
 </body>
 </html>
