@@ -27,6 +27,24 @@
           "successText": "Você acertou: símbolo encontrado!"
         }
       ]
+    },
+
+    {
+      "id": "NB",
+      "title": "Ponto NB — Butantã",
+      "embedSrc": "https://www.google.com/maps/embed?pb=!4v1757281881027!6m8!1m7!1sEwRDJ9ISxYXY9NdQx5vsLQ!2m2!1d-23.56525390628589!2d-46.71223281348831!3f286.07339557815925!4f16.283180025522796!5f0.7820865974627469",
+      "hotspots": [
+        {
+          "x": 0.4617,
+          "y": 0.5832,
+          "r": 60,
+          "label": "Toque para revelar",
+          "successText": "Você acertou: símbolo encontrado!"
+        }
+      ]
     }
   ]
 }
+
+
+<iframe src="https://www.google.com/maps/embed?pb=!4v1757281881027!6m8!1m7!1sEwRDJ9ISxYXY9NdQx5vsLQ!2m2!1d-23.56525390628589!2d-46.71223281348831!3f286.07339557815925!4f16.283180025522796!5f0.7820865974627469" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
