@@ -20,13 +20,15 @@
       "embedSrc": "https://www.google.com/maps/embed?pb=!4v1757278538006!6m8!1m7!1sQWcg4_3osZrbIJpXmH1xDA!2m2!1d-23.48139541817298!2d-46.60221350988711!3f171.67000017129124!4f-0.420300268527555!5f0.7820865974627469",
       "hotspots": [
         {
-          "x": 0.65,
-          "y": 0.40,
-          "r": 100,
+          "x": 0.0999,
+          "y": 0.4983,
+          "r": 61,
           "label": "Toque para revelar",
-          "successText": "Você encontrou o símbolo do museu!"
+          "successText": "Você acertou: símbolo encontrado!"
         }
       ]
     }
   ]
 }
+
+
