@@ -10,7 +10,7 @@
           "y": 0.50,
           "r": 80,
           "label": "Toque para revelar",
-          "successText": "Você encontrou o símbolo!"
+          "successText": "Você encontrou! <br><a href='https://ims.com.br/convida/comunidade-cultural-quilombaque/' target='_blank' style='color:#ffd400;text-decoration:underline;'>Saiba mais</a>"
         }
       ]
     },
@@ -34,9 +34,9 @@
       "embedSrc": "https://www.google.com/maps/embed?pb=!4v1757281881027!6m8!1m7!1sEwRDJ9ISxYXY9NdQx5vsLQ!2m2!1d-23.56525390628589!2d-46.71223281348831!3f286.07339557815925!4f16.283180025522796!5f0.7820865974627469",
       "hotspots": [
         {
-          "x": 0.4617,
-          "y": 0.5832,
-          "r": 60,
+          "x": 0.3112,
+          "y": 0.6498,
+          "r": 90,
           "label": "Toque para revelar",
           "successText": "Você acertou: símbolo encontrado!"
         }
@@ -48,11 +48,11 @@
       "embedSrc": "https://www.google.com/maps/embed?pb=!4v1757283501629!6m8!1m7!1sNHNu9CqDn_Ri62rW_Pmu0Q!2m2!1d-23.5104930780233!2d-46.67328169026732!3f95.75934722596594!4f-4.470357777825953!5f0.7820865974627469",
       "hotspots": [
         {
-          "x": 0.4617,
-          "y": 0.5832,
-          "r": 60,
+          "x": 0.8699,
+          "y": 0.49,
+          "r": 90,
           "label": "Toque para revelar",
-          "successText": "Você acertou: símbolo encontrado!"
+          "successText": "Você acertou! <br><a href='https://agenciamural.org.br/escola-nelson-mandela-promove-a-pratica-da-educacao-antirracista/' target='_blank' style='color:#ffd400;text-decoration:underline;'>Saiba mais</a>"
         }
       ]
     },
@@ -62,11 +62,11 @@
       "embedSrc": "https://www.google.com/maps/embed?pb=!4v1757283686477!6m8!1m7!1s5HTBESDHAj-ZxR_OKlSaCQ!2m2!1d-23.52531770428928!2d-46.54906751254448!3f114.63489632898103!4f6.561620116073129!5f0.7820865974627469",
       "hotspots": [
         {
-          "x": 0.4617,
-          "y": 0.5832,
-          "r": 60,
+          "x": 0.7577,
+          "y": 0.4927,
+          "r": 90,
           "label": "Toque para revelar",
-          "successText": "Você acertou: símbolo encontrado!"
+          "successText": "Símbolo encontrado! <br><a href='https://youtu.be/g214uk-lIRg?si=RP8mdLNNRYLl_ugY&t=47' target='_blank' style='color:#ffd400;text-decoration:underline;'>Conheça a história.</a>"
         }
       ]
     },
@@ -76,9 +76,9 @@
       "embedSrc": "https://www.google.com/maps/embed?pb=!4v1757283803851!6m8!1m7!1sWox_lOEv50UZQevezWQZAg!2m2!1d-23.59367309135956!2d-46.3932154386614!3f50.37785713748133!4f-4.8799145596315014!5f0.7820865974627469",
       "hotspots": [
         {
-          "x": 0.4617,
-          "y": 0.5832,
-          "r": 60,
+          "x": 0.4821,
+          "y": 0.4807,
+          "r": 90,
           "label": "Toque para revelar",
           "successText": "Você acertou: símbolo encontrado!"
         }
@@ -90,11 +90,11 @@
       "embedSrc": "https://www.google.com/maps/embed?pb=!4v1757284074124!6m8!1m7!1spjYyT_6rA3Ye5_fS7O1tnQ!2m2!1d-23.49179853976509!2d-46.46848537185743!3f313.35795734234296!4f11.438390580782468!5f0.7820865974627469",
       "hotspots": [
         {
-          "x": 0.4617,
-          "y": 0.5832,
-          "r": 60,
+          "x": 0.5816,
+          "y": 0.6897,
+          "r": 100,
           "label": "Toque para revelar",
-          "successText": "Você acertou: símbolo encontrado!"
+          "successText": "Você acertou! <br><a href='https://www.instagram.com/batakeredanca/' target='_blank' style='color:#ffd400;text-decoration:underline;'>Acesse o Instagram.</a>"
         }
       ]
     },
@@ -104,8 +104,8 @@
       "embedSrc": "https://www.google.com/maps/embed?pb=!4v1757284526612!6m8!1m7!1sdTfU3GrtD0boi9ykWxd3UA!2m2!1d-23.48397528676824!2d-46.40930147201608!3f119.43651115447884!4f2.2651805364535136!5f0.7820865974627469",
       "hotspots": [
         {
-          "x": 0.4617,
-          "y": 0.5832,
+          "x": 0.2628,
+          "y": 0.5087,
           "r": 60,
           "label": "Toque para revelar",
           "successText": "Você acertou: símbolo encontrado!"
@@ -118,11 +118,11 @@
       "embedSrc": "https://www.google.com/maps/embed?pb=!4v1757329344732!6m8!1m7!1seIqwQnuc_41t9mHP_RXIaw!2m2!1d-23.55496650104337!2d-46.6352994560698!3f307.270665626775!4f22.294558588920054!5f0.4000000000000002",
       "hotspots": [
         {
-          "x": 0.4617,
-          "y": 0.5832,
-          "r": 60,
+          "x": 0.5102,
+          "y": 0.7004,
+          "r": 70,
           "label": "Toque para revelar",
-          "successText": "Você acertou: símbolo encontrado!"
+          "successText": "Você acertou! <br><a href='https://spcity.com.br/bairro-da-liberdade-do-largo-da-forca-forca-sindical-historia-transformacoes/' target='_blank' style='color:#ffd400;text-decoration:underline;'>Saiba mais</a>"
         }
       ]
     },
@@ -132,9 +132,9 @@
       "embedSrc": "https://www.google.com/maps/embed?pb=!4v1757329517553!6m8!1m7!1s8RRH-elNa8TJrXBeUMXT7Q!2m2!1d-23.57162375265289!2d-46.6442752547393!3f110.43410935502928!4f17.187244143400818!5f0.7820865974627469",
       "hotspots": [
         {
-          "x": 0.4617,
-          "y": 0.5832,
-          "r": 60,
+          "x": 0.7219,
+          "y": 0.6911,
+          "r": 70,
           "label": "Toque para revelar",
           "successText": "Você acertou: símbolo encontrado!"
         }
@@ -146,11 +146,11 @@
       "embedSrc": "https://www.google.com/maps/embed?pb=!4v1757329987017!6m8!1m7!1sgf6feyRsY-iASmYItW_hUQ!2m2!1d-23.55032669634027!2d-46.63216513260306!3f74.19648462338313!4f-0.4616450710532263!5f0.7820865974627469",
       "hotspots": [
         {
-          "x": 0.4617,
-          "y": 0.5832,
-          "r": 60,
+          "x": 0.7449,
+          "y": 0.502,
+          "r": 80,
           "label": "Toque para revelar",
-          "successText": "Você acertou: símbolo encontrado!"
+          "successText": "Símbolo encontrado! <br><a href='https://blog.archtrends.com/joaquim-pinto-de-oliveira/' target='_blank' style='color:#ffd400;text-decoration:underline;'>Conheça o arquiteto Tebas.</a>"
         }
       ]
     },
@@ -160,9 +160,9 @@
       "embedSrc": "https://www.google.com/maps/embed?pb=!4v1757330109705!6m8!1m7!1sFW3o836aVrPqlihVS9nlMQ!2m2!1d-23.57969265443672!2d-46.66041037727961!3f225.4235458972708!4f24.994637899804886!5f0.4000000000000002",
       "hotspots": [
         {
-          "x": 0.4617,
-          "y": 0.5832,
-          "r": 60,
+          "x": 0.5332,
+          "y": 0.715,
+          "r": 100,
           "label": "Toque para revelar",
           "successText": "Você acertou: símbolo encontrado!"
         }
@@ -174,11 +174,11 @@
       "embedSrc": "https://www.google.com/maps/embed?pb=!4v1757330350473!6m8!1m7!1swiY8d6qyRruF1goVL2jYAg!2m2!1d-23.55608034595605!2d-46.67940890815897!3f134.18375291276624!4f27.81213567152426!5f0.7820865974627469",
       "hotspots": [
         {
-          "x": 0.4617,
-          "y": 0.5832,
-          "r": 60,
+          "x": 0.6964,
+          "y": 0.6391,
+          "r": 90,
           "label": "Toque para revelar",
-          "successText": "Você acertou: símbolo encontrado!"
+          "successText": "Você acertou! <br><a href='https://educacaoeterritorio.org.br/reportagens/historia-da-escadaria-marielle-franco-em-sao-paulo/' target='_blank' style='color:#ffd400;text-decoration:underline;'>Saiba mais</a>"
         }
       ]
     },
@@ -188,11 +188,11 @@
       "embedSrc": "https://www.google.com/maps/embed?pb=!4v1757330606082!6m8!1m7!1s4xm0ONVORR3kDQMPEf19-A!2m2!1d-23.57174673237536!2d-46.71955605348275!3f218.01613980422502!4f6.309649580529538!5f0.4000000000000002",
       "hotspots": [
         {
-          "x": 0.4617,
-          "y": 0.5832,
-          "r": 60,
+          "x": 0.6837,
+          "y": 0.5859,
+          "r": 90,
           "label": "Toque para revelar",
-          "successText": "Você acertou: símbolo encontrado!"
+          "successText": "Você acertou! <br><a href='https://pimpmycarroca.com/' target='_blank' style='color:#ffd400;text-decoration:underline;'>Conheça o Pimp my Carroça</a>"
         }
       ]
     },
@@ -202,9 +202,9 @@
       "embedSrc": "https://www.google.com/maps/embed?pb=!4v1757330824545!6m8!1m7!1s5KM-v6Uvv-NmtorOyqHAsQ!2m2!1d-23.55722515507855!2d-46.68660360383715!3f44.200681975838506!4f5.639984149771649!5f0.4000000000000002",
       "hotspots": [
         {
-          "x": 0.4617,
-          "y": 0.5832,
-          "r": 60,
+          "x": 0.3138,
+          "y": 0.5446,
+          "r": 80,
           "label": "Toque para revelar",
           "successText": "Você encontrou! siga em frente para explorar o beco."
         }
@@ -216,11 +216,11 @@
       "embedSrc": "https://www.google.com/maps/embed?pb=!4v1757330973169!6m8!1m7!1sDG7fbM2M5ueLyB4s1i8Wyw!2m2!1d-23.67840115615365!2d-46.78743753691394!3f111.77354759651276!4f14.200200267123861!5f0.7820865974627469",
       "hotspots": [
         {
-          "x": 0.4617,
-          "y": 0.5832,
-          "r": 60,
+          "x": 0.5281,
+          "y": 0.5459,
+          "r": 100,
           "label": "Toque para revelar",
-          "successText": "Você acertou: símbolo encontrado!"
+          "successText": "Você acertou! <br><a href='https://youtu.be/VDYRbLOdTAI?si=CGhcx7v_z-BHDdd6' target='_blank' style='color:#ffd400;text-decoration:underline;'>Ouça aqui</a>"
         }
       ]
     },
@@ -230,11 +230,11 @@
       "embedSrc": "https://www.google.com/maps/embed?pb=!4v1757331138257!6m8!1m7!1sPEuzrO0Yi5_oK5opVji0Dg!2m2!1d-23.65133706586628!2d-46.64514411576211!3f81.13531876071673!4f18.98487934371174!5f0.4000000000000002",
       "hotspots": [
         {
-          "x": 0.4617,
-          "y": 0.5832,
-          "r": 60,
+          "x": 0.5995,
+          "y": 0.6578,
+          "r": 100,
           "label": "Toque para revelar",
-          "successText": "Você acertou: símbolo encontrado!"
+          "successText": "Você acertou! <br><a href='https://prefeitura.sp.gov.br/web/cultura/w/patrimonio_historico/ladeira_memoria/8218' target='_blank' style='color:#ffd400;text-decoration:underline;'>Saiba mais</a>"
         }
       ]
     },
@@ -244,11 +244,11 @@
       "embedSrc": "https://www.google.com/maps/embed?pb=!4v1757331229128!6m8!1m7!1sGKjuEemDXPhdxtFOo1M5kw!2m2!1d-23.7601700637355!2d-46.66174624991596!3f131.1382736685115!4f6.506260163179164!5f0.7820865974627469",
       "hotspots": [
         {
-          "x": 0.4617,
-          "y": 0.5832,
-          "r": 60,
+          "x": 0.2959,
+          "y": 0.5539,
+          "r": 80,
           "label": "Toque para revelar",
-          "successText": "Você acertou: símbolo encontrado!"
+          "successText": "Você encontrou! <br><a href='https://biblioteca.cofen.gov.br/wp-content/uploads/2020/07/Para-uma-Educac%CC%A7a%CC%83o-Antirracista.pdf' target='_blank' style='color:#ffd400;text-decoration:underline;'>Saiba mais</a>"
         }
       ]
     },
@@ -258,11 +258,11 @@
       "embedSrc": "https://www.google.com/maps/embed?pb=!4v1757331466249!6m8!1m7!1sCAoSFkNJSE0wb2dLRUlDQWdJQ1g2cktOT1E.!2m2!1d-23.86490595869742!2d-46.62072199323122!3f8.816891882610772!4f1.3287568936138996!5f0.4000000000000002",
       "hotspots": [
         {
-          "x": 0.4617,
-          "y": 0.5832,
+          "x": 0.5332,
+          "y": 0.5366,
           "r": 150,
           "label": "Toque para revelar",
-          "successText": "Você chegou na Aldeia Krukutu!"
+          "successText": "Você chegou na Aldeia Krukutu! <br><a href='https://tenondepora.org.br/aldeias/tekoa-krukutu/' target='_blank' style='color:#ffd400;text-decoration:underline;'>Saiba mais</a>"
         }
       ]
     }
