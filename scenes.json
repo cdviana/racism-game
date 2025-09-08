@@ -114,8 +114,8 @@
     },
     {
       "id": "CA",
-      "title": "Ponto CA — ",
-      "embedSrc": "",
+      "title": "Ponto CA — Liberdade",
+      "embedSrc": "https://www.google.com/maps/embed?pb=!4v1757329344732!6m8!1m7!1seIqwQnuc_41t9mHP_RXIaw!2m2!1d-23.55496650104337!2d-46.6352994560698!3f307.270665626775!4f22.294558588920054!5f0.4000000000000002",
       "hotspots": [
         {
           "x": 0.4617,
@@ -128,8 +128,8 @@
     },
     {
       "id": "CC",
-      "title": "Ponto CC — ",
-      "embedSrc": "",
+      "title": "Ponto CC — Paraíso",
+      "embedSrc": "https://www.google.com/maps/embed?pb=!4v1757329517553!6m8!1m7!1s8RRH-elNa8TJrXBeUMXT7Q!2m2!1d-23.57162375265289!2d-46.6442752547393!3f110.43410935502928!4f17.187244143400818!5f0.7820865974627469",
       "hotspots": [
         {
           "x": 0.4617,
@@ -142,8 +142,8 @@
     },
     {
       "id": "CD",
-      "title": "Ponto CD — ",
-      "embedSrc": "",
+      "title": "Ponto CD — Sé",
+      "embedSrc": "https://www.google.com/maps/embed?pb=!4v1757329987017!6m8!1m7!1sgf6feyRsY-iASmYItW_hUQ!2m2!1d-23.55032669634027!2d-46.63216513260306!3f74.19648462338313!4f-0.4616450710532263!5f0.7820865974627469",
       "hotspots": [
         {
           "x": 0.4617,
@@ -156,8 +156,8 @@
     },
     {
       "id": "OA",
-      "title": "Ponto OA — ",
-      "embedSrc": "",
+      "title": "Ponto OA — Vila Mariana",
+      "embedSrc": "https://www.google.com/maps/embed?pb=!4v1757330109705!6m8!1m7!1sFW3o836aVrPqlihVS9nlMQ!2m2!1d-23.57969265443672!2d-46.66041037727961!3f225.4235458972708!4f24.994637899804886!5f0.4000000000000002",
       "hotspots": [
         {
           "x": 0.4617,
@@ -170,8 +170,8 @@
     },
     {
       "id": "OB",
-      "title": "Ponto OB — ",
-      "embedSrc": "",
+      "title": "Ponto OB — Alto de Pinheiros",
+      "embedSrc": "https://www.google.com/maps/embed?pb=!4v1757330350473!6m8!1m7!1swiY8d6qyRruF1goVL2jYAg!2m2!1d-23.55608034595605!2d-46.67940890815897!3f134.18375291276624!4f27.81213567152426!5f0.7820865974627469",
       "hotspots": [
         {
           "x": 0.4617,
@@ -184,8 +184,8 @@
     },
     {
       "id": "OC",
-      "title": "Ponto OC — ",
-      "embedSrc": "",
+      "title": "Ponto OC — Vila Pirajussara",
+      "embedSrc": "https://www.google.com/maps/embed?pb=!4v1757330606082!6m8!1m7!1s4xm0ONVORR3kDQMPEf19-A!2m2!1d-23.57174673237536!2d-46.71955605348275!3f218.01613980422502!4f6.309649580529538!5f0.4000000000000002",
       "hotspots": [
         {
           "x": 0.4617,
@@ -198,22 +198,22 @@
     },
     {
       "id": "OD",
-      "title": "Ponto OD — ",
-      "embedSrc": "",
+      "title": "Ponto OD — Vila Madalena",
+      "embedSrc": "https://www.google.com/maps/embed?pb=!4v1757330824545!6m8!1m7!1s5KM-v6Uvv-NmtorOyqHAsQ!2m2!1d-23.55722515507855!2d-46.68660360383715!3f44.200681975838506!4f5.639984149771649!5f0.4000000000000002",
       "hotspots": [
         {
           "x": 0.4617,
           "y": 0.5832,
           "r": 60,
           "label": "Toque para revelar",
-          "successText": "Você acertou: símbolo encontrado!"
+          "successText": "Você encontrou! siga em frente para explorar o beco."
         }
       ]
     },
     {
       "id": "SA",
-      "title": "Ponto SA — ",
-      "embedSrc": "",
+      "title": "Ponto SA — Capão Redondo",
+      "embedSrc": "https://www.google.com/maps/embed?pb=!4v1757330973169!6m8!1m7!1sDG7fbM2M5ueLyB4s1i8Wyw!2m2!1d-23.67840115615365!2d-46.78743753691394!3f111.77354759651276!4f14.200200267123861!5f0.7820865974627469",
       "hotspots": [
         {
           "x": 0.4617,
@@ -226,8 +226,8 @@
     },
     {
       "id": "SB",
-      "title": "Ponto SB — ",
-      "embedSrc": "",
+      "title": "Ponto SB — Jabaquara",
+      "embedSrc": "https://www.google.com/maps/embed?pb=!4v1757331138257!6m8!1m7!1sPEuzrO0Yi5_oK5opVji0Dg!2m2!1d-23.65133706586628!2d-46.64514411576211!3f81.13531876071673!4f18.98487934371174!5f0.4000000000000002",
       "hotspots": [
         {
           "x": 0.4617,
@@ -240,8 +240,8 @@
     },
     {
       "id": "SC",
-      "title": "Ponto SC — ",
-      "embedSrc": "",
+      "title": "Ponto SC — Grajaú",
+      "embedSrc": "https://www.google.com/maps/embed?pb=!4v1757331229128!6m8!1m7!1sGKjuEemDXPhdxtFOo1M5kw!2m2!1d-23.7601700637355!2d-46.66174624991596!3f131.1382736685115!4f6.506260163179164!5f0.7820865974627469",
       "hotspots": [
         {
           "x": 0.4617,
@@ -254,15 +254,15 @@
     },
     {
       "id": "SD",
-      "title": "Ponto SD — ",
-      "embedSrc": "",
+      "title": "Ponto SD — Parque Amazonas",
+      "embedSrc": "https://www.google.com/maps/embed?pb=!4v1757331466249!6m8!1m7!1sCAoSFkNJSE0wb2dLRUlDQWdJQ1g2cktOT1E.!2m2!1d-23.86490595869742!2d-46.62072199323122!3f8.816891882610772!4f1.3287568936138996!5f0.4000000000000002",
       "hotspots": [
         {
           "x": 0.4617,
           "y": 0.5832,
-          "r": 60,
+          "r": 150,
           "label": "Toque para revelar",
-          "successText": "Você acertou: símbolo encontrado!"
+          "successText": "Você chegou na Aldeia Krukutu!"
         }
       ]
     }
