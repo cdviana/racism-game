@@ -13,89 +13,145 @@
       position:fixed; top:10px; left:10px; right:10px; display:flex; gap:8px; align-items:center; z-index:5; flex-wrap:wrap;
       font:14px system-ui;
     }
-    .tag { background:rgba(0,0,0,.5); color:#fff; padding:6px 10px; border-radius:10px; }
-    .btn { background:#ffd400; border:0; border-radius:10px; padding:8px 12px; font-weight:600; cursor:pointer; }
+    .tag { background:rgba(0,0,0,.6); color:#fff; padding:6px 10px; border-radius:10px; }
+    .btn { background:#ffd400; border:0; border-radius:10px; padding:8px 12px; font-weight:600; cursor:pointer; color:#000; text-decoration:none; }
+    .err { background:#B00020; color:#fff; }
   </style>
 </head>
 <body>
-  <div id="map"></div>
+  <div id="map" role="application" aria-label="Mapa de rotas"></div>
   <div class="topbar">
     <div id="title" class="tag">Carregando rota…</div>
     <button id="toggle" class="btn" style="display:none;">Mostrar trajeto</button>
-    <a class="btn" href="./index.html" style="text-decoration:none; color:#000;">Voltar</a>
+    <a class="btn" href="./index.html">Voltar</a>
   </div>
 
   <script>
+    // Utilidades
+    const $ = id => document.getElementById(id);
     const params = new URLSearchParams(location.search);
-    const routeId = (params.get('r') || '').trim().toLowerCase();
+    const routeParam = (params.get('r') || '').trim().toLowerCase();
 
+    // Inicia o mapa
     const map = new maplibregl.Map({
       container: 'map',
-      style: 'https://demotiles.maplibre.org/style.json', // estilo básico (você pode trocar por um cinza)
+      style: 'https://demotiles.maplibre.org/style.json',
       center: [-46.6333, -23.5505],
       zoom: 12
     });
 
     let visible = false;
+    let routeId = null;
+    let routeTitle = null;
 
-    fetch('routes.json?v='+Date.now(), { cache:'no-store' })
-      .then(r => r.json())
+    // Carrega routes.json sem cache
+    fetch('routes.json?v=' + Date.now(), { cache: 'no-store' })
+      .then(r => {
+        if (!r.ok) throw new Error(`Falha ao carregar routes.json (${r.status})`);
+        return r.json();
+      })
       .then(data => {
-        if (!data || !Array.isArray(data.routes) || data.routes.length===0) throw new Error('routes.json vazio.');
-        const wanted = data.routes.find(rt => (rt.id||'').trim().toLowerCase() === routeId) || data.routes[0];
+        if (!data || !Array.isArray(data.routes) || data.routes.length === 0) {
+          throw new Error('routes.json inválido ou vazio. Esperado { "routes": [ ... ] }.');
+        }
 
-        document.getElementById('title').textContent = wanted.title || 'Rota';
+        // escolhe rota (id via ?r= ou primeira válida)
+        const wanted = data.routes.find(rt => (rt.id||'').trim().toLowerCase() === routeParam);
+        const picked = wanted || data.routes[0];
+
+        if (!picked || !picked.data || !picked.data.geometry) {
+          throw new Error('Rota selecionada não contém GeoJSON válido (campo "data").');
+        }
+
+        routeId = picked.id || 'rota';
+        routeTitle = picked.title || 'Rota';
+        const color = picked.color || '#FF2D55';
+        const gj = picked.data;
+
+        // valida tipo e extrai coordenadas (LineString ou MultiLineString)
+        const coords = extractCoords(gj.geometry);
+        if (!coords || coords.length < 2) {
+          throw new Error('GeoJSON deve conter pelo menos 2 coordenadas. Verifique se a ordem está [lon, lat].');
+        }
+
+        // bounds para fit
+        const bbox = computeBounds(coords);
+        const toggleBtn = $('toggle');
+        const titleEl = $('title');
 
         map.on('load', () => {
-          // dessaturar/escurecer o fundo (opcional): simples overlay cinza
-          map.addSource('backdrop', { type: 'geojson', data: { "type":"FeatureCollection","features":[] } });
-          map.addLayer({
-            id:'desaturate',
-            type:'background',
-            paint:{ 'background-color': 'hsl(0, 0%, 15%)' } // fundo neutro escuro
-          }, undefined);
+          titleEl.textContent = routeTitle;
 
-          map.addSource('route', { type:'geojson', data: wanted.data });
-
+          // camada de rota
+          map.addSource('route', { type: 'geojson', data: gj });
           map.addLayer({
-            id:'route-line',
-            type:'line',
-            source:'route',
-            layout:{ 'line-cap':'round', 'line-join':'round' },
-            paint:{
-              'line-color': wanted.color || '#FF2D55',
+            id: 'route-line',
+            type: 'line',
+            source: 'route',
+            layout: { 'line-cap': 'round', 'line-join': 'round' },
+            paint: {
+              'line-color': color,
               'line-width': 6,
-              'line-opacity': 0.0   // começa invisível
+              'line-opacity': 0.0   // começa escondida
             }
           });
 
-          if (wanted.view && wanted.view.center) {
-            map.setCenter(wanted.view.center);
-            if (wanted.view.zoom) map.setZoom(wanted.view.zoom);
-          }
+          // ajusta a visão para a rota
+          const pad = 80; // padding em px
+          map.fitBounds([[bbox.minLng, bbox.minLat], [bbox.maxLng, bbox.maxLat]], { padding: pad, duration: 600 });
 
-          // Botão de toggle
-          const btn = document.getElementById('toggle');
-          btn.style.display = 'inline-block';
-          btn.textContent = 'Mostrar trajeto';
-          btn.addEventListener('click', () => {
+          // ativa UI
+          toggleBtn.style.display = 'inline-block';
+          toggleBtn.textContent = 'Mostrar trajeto';
+          toggleBtn.onclick = () => {
             visible = !visible;
             map.setPaintProperty('route-line', 'line-opacity', visible ? 1.0 : 0.0);
-            btn.textContent = visible ? 'Ocultar trajeto' : 'Mostrar trajeto';
-          });
+            toggleBtn.textContent = visible ? 'Ocultar trajeto' : 'Mostrar trajeto';
+          };
 
-          // Também ativa no primeiro clique no mapa (se preferir)
+          // também revela no primeiro clique no mapa (opcional)
           map.getCanvas().addEventListener('click', () => {
-            visible = !visible;
-            map.setPaintProperty('route-line', 'line-opacity', visible ? 1.0 : 0.0);
-            btn.textContent = visible ? 'Ocultar trajeto' : 'Mostrar trajeto';
-          }, { once:true }); // primeira vez ativa
+            if (!visible) toggleBtn.click();
+          }, { once: true });
         });
       })
       .catch(err => {
-        document.getElementById('title').textContent = 'Erro ao carregar rota';
-        console.error(err);
+        $('title').classList.add('err');
+        $('title').textContent = 'Erro: ' + (err.message || 'Falha ao carregar');
+        console.error('[map.html]', err);
       });
+
+    // ---- helpers ----
+
+    // Extrai coordenadas (lon,lat) de LineString ou MultiLineString
+    function extractCoords(geom) {
+      if (!geom || !geom.type) return null;
+      if (geom.type === 'LineString') {
+        return Array.isArray(geom.coordinates) ? geom.coordinates : null;
+      }
+      if (geom.type === 'MultiLineString') {
+        if (!Array.isArray(geom.coordinates)) return null;
+        // achata as linhas
+        return geom.coordinates.flat().filter(Array.isArray);
+      }
+      // Outros tipos não suportados neste HTML simples
+      throw new Error('Tipo GeoJSON não suportado: ' + geom.type + '. Use LineString ou MultiLineString.');
+    }
+
+    // Calcula retângulo envolvente simples
+    function computeBounds(coords) {
+      let minLng = +Infinity, minLat = +Infinity, maxLng = -Infinity, maxLat = -Infinity;
+      for (const c of coords) {
+        const lng = Number(c[0]); // ORDEM CORRETA: [lon, lat]
+        const lat = Number(c[1]);
+        if (!isFinite(lng) || !isFinite(lat)) continue;
+        if (lng < minLng) minLng = lng;
+        if (lng > maxLng) maxLng = lng;
+        if (lat < minLat) minLat = lat;
+        if (lat > maxLat) maxLat = lat;
+      }
+      return { minLng, minLat, maxLng, maxLat };
+    }
   </script>
 </body>
 </html>
