@@ -37,7 +37,7 @@
     const params = new URLSearchParams(location.search);
     const routeParam = (params.get('r') || '').trim().toLowerCase();
 
-    // Estilo inline OSM raster
+    // Carto Positron
     const osmStyle = {
       "version": 8,
       "name": "Carto Positron",
@@ -78,24 +78,45 @@
         const picked = wanted || data.routes[0];
         $('title').textContent = picked.title || 'Rota';
 
-        // Prepara GeoJSON da linha: se houver "path", usa; senão, liga os "stops" na ordem.
-        const lineCoords = picked.path?.coordinates && picked.path.coordinates.length >= 2
-          ? picked.path.coordinates
-          : (picked.stops || []).map(s => s.coord).filter(Boolean);
+        // =======================
+        // usa path "assado" (Feature GeoJSON) se existir;
+        // senão, aceita path.coordinates (formato antigo);
+        // senão, liga os stops.
+        // =======================
+        let lineFeature = null;
 
-        if (!lineCoords || lineCoords.length < 2) {
-          throw new Error('Não há coordenadas suficientes para desenhar a linha (verifique path ou stops.coord).');
+        if (picked.path?.geometry?.type === 'LineString' &&
+            Array.isArray(picked.path.geometry.coordinates)) {
+          // path já vem como Feature GeoJSON completo
+          lineFeature = picked.path;
+        } else if (Array.isArray(picked.path?.coordinates)) {
+          // compat: path.coordinates direto
+          lineFeature = {
+            type: "Feature",
+            properties: {},
+            geometry: { type: "LineString", coordinates: picked.path.coordinates }
+          };
+        } else {
+          // fallback: conecta as paradas
+          const stopsCoords = (picked.stops || []).map(s => s.coord).filter(Boolean);
+          if (!stopsCoords || stopsCoords.length < 2) {
+            throw new Error('Não há coordenadas suficientes para desenhar a linha (verifique path.geometry.coordinates ou stops.coord).');
+          }
+          lineFeature = {
+            type: "Feature",
+            properties: {},
+            geometry: { type: "LineString", coordinates: stopsCoords }
+          };
         }
 
-        const line = {
-          "type": "Feature",
-          "properties": {},
-          "geometry": { "type": "LineString", "coordinates": lineCoords }
-        };
+        const lineCoords = lineFeature.geometry.coordinates;
 
         map.on('load', () => {
           // Fonte/camada da linha
-          map.addSource('route', { type:'geojson', data: line });
+          if (map.getSource('route')) map.removeSource('route');
+          map.addSource('route', { type:'geojson', data: lineFeature });
+
+          if (map.getLayer('route-line')) map.removeLayer('route-line');
           map.addLayer({
             id:'route-line',
             type:'line',
@@ -114,13 +135,13 @@
             const el = document.createElement('div');
             el.className = 'marker';
             el.textContent = String(i+1);
-            const m = new maplibregl.Marker({ element: el, anchor: 'center' })
+            new maplibregl.Marker({ element: el, anchor: 'center' })
               .setLngLat(s.coord)
               .setPopup(new maplibregl.Popup({ offset: 28 }).setText(s.name || `Ponto ${i+1}`))
               .addTo(map);
           });
 
-          // Fit bounds na linha
+          // Fit bounds na linha assada
           const bbox = computeBounds(lineCoords);
           map.fitBounds([[bbox.minLng, bbox.minLat], [bbox.maxLng, bbox.maxLat]], { padding: 80, duration: 600 });
 
