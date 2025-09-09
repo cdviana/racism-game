@@ -15,8 +15,24 @@
             [-46.6341, -23.5507]
           ]
         }
-      },
-      "view": { "center": [-46.6365, -23.5498], "zoom": 14 }
+      }
+    },
+    {
+      "id": "rota-b",
+      "title": "Rota B",
+      "color": "#2ECC71",
+      "data": {
+        "type": "Feature",
+        "properties": {},
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [-46.72, -23.57],
+            [-46.71, -23.565],
+            [-46.70, -23.56]
+          ]
+        }
+      }
     }
   ]
 }
