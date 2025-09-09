@@ -40,18 +40,18 @@
     // Estilo inline OSM raster
     const osmStyle = {
       "version": 8,
-      "name": "OSM Raster",
+      "name": "Carto Positron",
       "sources": {
-        "osm": {
+        "carto": {
           "type": "raster",
-          "tiles": ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
+          "tiles": ["https://basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"],
           "tileSize": 256,
-          "attribution": "© OpenStreetMap contributors"
+          "attribution": "© OpenStreetMap contributors © CARTO"
         }
       },
       "layers": [
-        { "id": "bk", "type": "background", "paint": { "background-color": "hsl(0, 0%, 94%)" } },
-        { "id": "osm-tiles", "type": "raster", "source": "osm", "minzoom": 0, "maxzoom": 19 }
+        { "id": "bk", "type": "background", "paint": { "background-color": "#f8f8f8" } },
+        { "id": "carto", "type": "raster", "source": "carto", "minzoom": 0, "maxzoom": 20 }
       ]
     };
 
