@@ -1,35 +1,25 @@
 {
   "routes": [
     {
-      "id": "volta-negra",
-      "title": "Caminhada Volta Negra",
-      "color": "#FF2D55",
-      "data": {
+      "id": "volta-negra-centro",
+      "title": "Caminhada Volta Negra — Centro",
+      "color": "#E91E63",
+      "stops": [
+        { "name": "Largo da Memória",       "coord": [-46.640042, -23.547813] },
+        { "name": "Largo São Francisco",    "coord": [-46.637000, -23.549757] },
+        { "name": "Largo da Misericórdia",  "coord": [-46.634595, -23.548486] },
+        { "name": "Praça Antônio Prado",    "coord": [-46.634537, -23.545617] }
+      ],
+      "path": {
         "type": "Feature",
         "properties": {},
         "geometry": {
           "type": "LineString",
           "coordinates": [
-            [-46.6385, -23.5489],
-            [-46.6362, -23.5498],
-            [-46.6341, -23.5507]
-          ]
-        }
-      }
-    },
-    {
-      "id": "rota-b",
-      "title": "Rota B",
-      "color": "#2ECC71",
-      "data": {
-        "type": "Feature",
-        "properties": {},
-        "geometry": {
-          "type": "LineString",
-          "coordinates": [
-            [-46.72, -23.57],
-            [-46.71, -23.565],
-            [-46.70, -23.56]
+            [-46.640042, -23.547813],
+            [-46.637000, -23.549757],
+            [-46.634595, -23.548486],
+            [-46.634537, -23.545617]
           ]
         }
       }
