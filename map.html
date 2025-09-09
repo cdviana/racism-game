@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Rotas — Visão Aérea</title>
+  <link href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet" />
+  <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
+  <style>
+    html, body { height:100%; margin:0; }
+    #map { position:fixed; inset:0; }
+    .topbar {
+      position:fixed; top:10px; left:10px; right:10px; display:flex; gap:8px; align-items:center; z-index:5; flex-wrap:wrap;
+      font:14px system-ui;
+    }
+    .tag { background:rgba(0,0,0,.5); color:#fff; padding:6px 10px; border-radius:10px; }
+    .btn { background:#ffd400; border:0; border-radius:10px; padding:8px 12px; font-weight:600; cursor:pointer; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <div class="topbar">
+    <div id="title" class="tag">Carregando rota…</div>
+    <button id="toggle" class="btn" style="display:none;">Mostrar trajeto</button>
+    <a class="btn" href="./index.html" style="text-decoration:none; color:#000;">Voltar</a>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(location.search);
+    const routeId = (params.get('r') || '').trim().toLowerCase();
+
+    const map = new maplibregl.Map({
+      container: 'map',
+      style: 'https://demotiles.maplibre.org/style.json', // estilo básico (você pode trocar por um cinza)
+      center: [-46.6333, -23.5505],
+      zoom: 12
+    });
+
+    let visible = false;
+
+    fetch('routes.json?v='+Date.now(), { cache:'no-store' })
+      .then(r => r.json())
+      .then(data => {
+        if (!data || !Array.isArray(data.routes) || data.routes.length===0) throw new Error('routes.json vazio.');
+        const wanted = data.routes.find(rt => (rt.id||'').trim().toLowerCase() === routeId) || data.routes[0];
+
+        document.getElementById('title').textContent = wanted.title || 'Rota';
+
+        map.on('load', () => {
+          // dessaturar/escurecer o fundo (opcional): simples overlay cinza
+          map.addSource('backdrop', { type: 'geojson', data: { "type":"FeatureCollection","features":[] } });
+          map.addLayer({
+            id:'desaturate',
+            type:'background',
+            paint:{ 'background-color': 'hsl(0, 0%, 15%)' } // fundo neutro escuro
+          }, undefined);
+
+          map.addSource('route', { type:'geojson', data: wanted.data });
+
+          map.addLayer({
+            id:'route-line',
+            type:'line',
+            source:'route',
+            layout:{ 'line-cap':'round', 'line-join':'round' },
+            paint:{
+              'line-color': wanted.color || '#FF2D55',
+              'line-width': 6,
+              'line-opacity': 0.0   // começa invisível
+            }
+          });
+
+          if (wanted.view && wanted.view.center) {
+            map.setCenter(wanted.view.center);
+            if (wanted.view.zoom) map.setZoom(wanted.view.zoom);
+          }
+
+          // Botão de toggle
+          const btn = document.getElementById('toggle');
+          btn.style.display = 'inline-block';
+          btn.textContent = 'Mostrar trajeto';
+          btn.addEventListener('click', () => {
+            visible = !visible;
+            map.setPaintProperty('route-line', 'line-opacity', visible ? 1.0 : 0.0);
+            btn.textContent = visible ? 'Ocultar trajeto' : 'Mostrar trajeto';
+          });
+
+          // Também ativa no primeiro clique no mapa (se preferir)
+          map.getCanvas().addEventListener('click', () => {
+            visible = !visible;
+            map.setPaintProperty('route-line', 'line-opacity', visible ? 1.0 : 0.0);
+            btn.textContent = visible ? 'Ocultar trajeto' : 'Mostrar trajeto';
+          }, { once:true }); // primeira vez ativa
+        });
+      })
+      .catch(err => {
+        document.getElementById('title').textContent = 'Erro ao carregar rota';
+        console.error(err);
+      });
+  </script>
+</body>
+</html>
