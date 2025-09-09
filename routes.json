@@ -1,0 +1,22 @@
+{
+  "routes": [
+    {
+      "id": "volta-negra",
+      "title": "Caminhada Volta Negra",
+      "color": "#FF2D55",
+      "data": {
+        "type": "Feature",
+        "properties": {},
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [-46.6385, -23.5489],
+            [-46.6362, -23.5498],
+            [-46.6341, -23.5507]
+          ]
+        }
+      },
+      "view": { "center": [-46.6365, -23.5498], "zoom": 14 }
+    }
+  ]
+}
