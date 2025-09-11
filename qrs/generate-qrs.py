@@ -1,4 +1,4 @@
-!pip install qrcode[pil]
+pip install qrcode[pil]
 
 import os
 import re
