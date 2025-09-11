@@ -6,7 +6,7 @@ Este projeto implementa uma experiência interativa em que o jogador explora cen
 
 O projeto é parte complementar do produto desenvolvido pela equipe da ETEC Guaracy Silveira (Caetano Oroz Vieira, Francisco Nascimento Tojeira Cara, Heron Martins Cavalcante, João Pedro Cordola Vieira), sob orientação do Professor Jean William Mendes, para a Olimpíada Brasileira de Cartografia de 2025.
 
-
+![alt text](game-application.jpeg)
 
 ## Funcionalidades
 
