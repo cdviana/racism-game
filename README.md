@@ -2,6 +2,12 @@
 
 Este projeto implementa uma experiência interativa em que o jogador explora cenas do Google Street View e um mapa temático para descobrir símbolos de combate ao racismo em pontos estratégicos da cidade de São Paulo.
 
+## Contexto
+
+O projeto é parte complementar do produto desenvolvido pela equipe da ETEC Guaracy Silveira (Caetano Oroz Vieira, Francisco Nascimento Tojeira Cara, Heron Martins Cavalcante, João Pedro Cordola Vieira), sob orientação do Professor Jean William Mendes, para a Olimpíada Brasileira de Cartografia de 2025.
+
+
+
 ## Funcionalidades
 
 - **Cenas Street View**
